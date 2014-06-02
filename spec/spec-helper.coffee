@@ -13,7 +13,7 @@ Config = require '../src/config'
 {Point} = require 'text-buffer'
 Project = require '../src/project'
 Editor = require '../src/editor'
-EditorView = require '../src/editor-view'
+EditorView = require '../src/react-editor-view'
 TokenizedBuffer = require '../src/tokenized-buffer'
 pathwatcher = require 'pathwatcher'
 clipboard = require 'clipboard'
@@ -89,12 +89,11 @@ beforeEach ->
   config.set "editor.autoIndent", false
   config.set "core.disabledPackages", ["package-that-throws-an-exception",
     "package-with-broken-package-json", "package-with-broken-keymap"]
-  config.set "core.useReactEditor", false
+  config.set "core.useReactEditor", true
   config.save.reset()
   atom.config = config
 
   # make editor display updates synchronous
-  spyOn(EditorView.prototype, 'requestDisplayUpdate').andCallFake -> @updateDisplay()
   spyOn(WorkspaceView.prototype, 'setTitle').andCallFake (@title) ->
   spyOn(window, "setTimeout").andCallFake window.fakeSetTimeout
   spyOn(window, "clearTimeout").andCallFake window.fakeClearTimeout
