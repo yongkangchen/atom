@@ -553,16 +553,12 @@ class Atom extends Model
     @loadConfig()
     @keymaps.loadBundledKeymaps()
     @themes.loadBaseStylesheets()
-    
-    setTimeout =>
-      @packages.loadPackages()
-      @packages.activate()
-    ,200
-    
+    @packages.loadPackages()
     @deserializeEditorWindow()
 
     @watchProjectPath()
-    
+
+    @packages.activate()
     @keymaps.loadUserKeymap()
     @requireUserInitScript() unless safeMode
 
